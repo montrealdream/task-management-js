@@ -13,15 +13,27 @@ module.exports.index = async (req, res) => {
         }
         // end filter status of task
 
+        // search keyword (~search according title)
+        if(req.query.keyword){
+            // regex
+            const keyword = new RegExp(req.query.keyword, "i");
+            // end regex
+
+            findObject.title = keyword;
+        }
+        // end search keyword
+
         // sort citeria
         const sortObject = {};
 
         if(req.query.sortKey && req.query.sortValue){
             sortObject[req.query.sortKey] = req.query.sortValue;
         }
+        // end sort citeria
 
         // count document in collection on DATABSE
         const documentLength = await Task.countDocuments(findObject);
+        // end count document in collection on DATABSE
 
         // pagination
         const paginationObject = {
@@ -36,16 +48,14 @@ module.exports.index = async (req, res) => {
         paginationObject.skip = (paginationObject.current - 1) * paginationObject.limit; //skip item for page
 
         paginationObject.total = Math.ceil(documentLength/paginationObject.limit); // total page 
-
-
-
         // end pagination
 
+        // get document
         const tasks = await Task.find(findObject)
                                 .sort(sortObject)
                                 .limit(paginationObject.limit)
                                 .skip(paginationObject.skip);
-        // end sort citeria
+        
 
         res.json(tasks);
     }
