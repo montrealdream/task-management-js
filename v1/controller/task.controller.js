@@ -12,9 +12,17 @@ module.exports.index = async (req, res) => {
             findObject.status = req.query.status;
         }
 
-        const task = await Task.find(findObject);
+        // sort citeria
+        const sortObject = {};
 
-        res.json(task);
+        if(req.query.sortKey && req.query.sortValue){
+            sortObject[req.query.sortKey] = req.query.sortValue;
+        }
+
+        const tasks = await Task.find(findObject)
+                                .sort(sortObject);
+
+        res.json(tasks);
     }
     catch(error){
 
