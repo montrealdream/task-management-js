@@ -10,5 +10,7 @@ const controller = require('../../v1/controller/task.controller');
 // use
 router.get('/', controller.index);
 
+router.patch('/change-status/:taskId', controller.changeStatus);
+
 // export
 module.exports = router; 

@@ -63,3 +63,28 @@ module.exports.index = async (req, res) => {
 
     }
 }
+
+// [PATCH] /api/v1/tasks/change-status/:taskId
+module.exports.changeStatus = async (req, res) => {
+    try{
+        const taskId = req.params.taskId;
+        const status = req.body.status;
+
+        // change status
+        await Task.updateOne(
+            {_id: taskId}, 
+            {
+                status: status
+            }
+        );
+        // res.status(500).json({ error: 'message' })
+        
+        res.json({
+            code: 200,
+            message: "Cập nhật trạng thái thành công!"
+        });
+    }
+    catch(error){
+
+    }
+}
