@@ -40,5 +40,9 @@ router.patch(
     controller.deleteOne
 );
 
+router.patch(
+    '/delete-multi',
+    controller.deleteMulti
+);
 // export
 module.exports = router; 
