@@ -23,5 +23,10 @@ router.post(
     controller.createTask
 );
 
+router.get(
+    '/detail/:taskId',
+    controller.detail
+);
+
 // export
 module.exports = router; 

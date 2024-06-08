@@ -156,3 +156,26 @@ module.exports.createTask = async (req, res) => {
 
     }
 }
+
+// [GET /api/v1/tasks/detail/:taskId
+module.exports.detail = async (req, res) => {
+    try{
+        const taskId = req.params.taskId;
+
+        // get task
+        const task = await Task.findOne({
+            _id: taskId,
+            deleted: false
+        }).select("-deleted");
+
+        console.log(task);
+        res.json({
+            code: 200,
+            message: "Lấy ra chi tiết công việc thành công",
+            task
+        })
+    }
+    catch(error){
+
+    }
+}
