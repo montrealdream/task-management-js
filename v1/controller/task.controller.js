@@ -134,3 +134,25 @@ module.exports.changeMulti = async (req, res) => {
 
     }
 }
+
+// [POST] /api/v1/tasks/create
+module.exports.createTask = async (req, res) => {
+    try{
+        const objTask = {
+            title: req.body.title,
+            status: "initial", //default ,
+            // chưa có time start
+        }
+
+        const task = new Task(objTask);
+        await task.save();
+
+        res.json({
+            code: 200,
+            message: "Tạo mới một công việc thành công"
+        });
+    }
+    catch(error){
+
+    }
+}

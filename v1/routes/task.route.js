@@ -14,5 +14,7 @@ router.patch('/change-status/:taskId', controller.changeStatus);
 
 router.patch('/change-multi', controller.changeMulti);
 
+router.post('/create', controller.createTask);
+
 // export
 module.exports = router; 
