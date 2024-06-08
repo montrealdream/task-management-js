@@ -219,3 +219,25 @@ module.exports.edit = async (req, res) => {
 
     }
 }
+
+// [PATCH] /api/v1/tasks/deleteOne/:taskId
+module.exports.deleteOne = async (req, res) => {
+    try{
+        const taskId = req.params.taskId;
+
+        await Task.updateOne(
+            {_id: taskId},
+            {
+                deleted: true
+            }
+        );
+
+        res.json({
+            code: 200,
+            message: "Xóa công việc thành công"
+        });
+    }
+    catch(error){
+
+    }
+}

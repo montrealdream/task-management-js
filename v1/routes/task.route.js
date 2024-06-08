@@ -34,5 +34,11 @@ router.patch(
     controller.edit
 );
 
+
+router.patch(
+    '/deleteOne/:taskId',
+    controller.deleteOne
+);
+
 // export
 module.exports = router; 
