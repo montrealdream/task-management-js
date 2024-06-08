@@ -70,19 +70,30 @@ module.exports.changeStatus = async (req, res) => {
         const taskId = req.params.taskId;
         const status = req.body.status;
 
-        // change status
-        await Task.updateOne(
-            {_id: taskId}, 
-            {
-                status: status
-            }
-        );
-        // res.status(500).json({ error: 'message' })
-        
-        res.json({
-            code: 200,
-            message: "Cập nhật trạng thái thành công!"
-        });
+        const listStatus = ["initial", "doing", "finish", "pending", "notFinish"];
+
+        if(listStatus.includes(status)){
+            // change status
+            await Task.updateOne(
+                {_id: taskId}, 
+                {
+                    status: status
+                }
+            );
+            // res.status(500).json({ error: 'message' })
+            
+            res.json({
+                code: 200,
+                message: "Cập nhật trạng thái thành công!"
+            });
+        }
+        else{
+            res.json({
+                code: 200,
+                message: "Trạng thái này không tồn tại"
+            })
+        }
+       
     }
     catch(error){
 
@@ -94,21 +105,30 @@ module.exports.changeMulti = async (req, res) => {
     try{
         const {ids, status} = req.body;
         
-        // update
+        const listStatus = ["initial", "doing", "finish", "pending", "notFinish"];
 
-        await Task.updateMany(
-            {
-                _id: {$in: ids},
-            },{
-                status: status
-            }
-        );
+        if(listStatus.includes(status)){
+             // update
+            await Task.updateMany(
+                {
+                    _id: {$in: ids},
+                },{
+                    status: status
+                }
+            );
 
-        res.json({
-            code: 200,
-            message: "Đổi trạng thái nhiều công việc thành công"
-
-        })
+            res.json({
+                code: 200,
+                message: "Đổi trạng thái nhiều công việc thành công"
+            });
+        }
+        else{
+            res.json({
+                code: 404,
+                message: "Trạng thái này không tồn tại"
+            });
+        }
+       
     }
     catch(error){
 
