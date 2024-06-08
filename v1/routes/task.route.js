@@ -12,5 +12,7 @@ router.get('/', controller.index);
 
 router.patch('/change-status/:taskId', controller.changeStatus);
 
+router.patch('/change-multi', controller.changeMulti);
+
 // export
 module.exports = router; 
