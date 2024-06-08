@@ -1,9 +1,12 @@
 const express = require('express');
-// dotenv
 require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT;
+
+// enable all cors request
+app.use(cors());
 
 // body-parser
 const bodyParser = require('body-parser');
