@@ -28,5 +28,11 @@ router.get(
     controller.detail
 );
 
+router.patch(
+    '/edit/:taskId',
+    taskValidate.editTask,
+    controller.edit
+);
+
 // export
 module.exports = router; 

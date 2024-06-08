@@ -179,3 +179,43 @@ module.exports.detail = async (req, res) => {
 
     }
 }
+
+// [PATCH] /api/v1/tasks/edit/:taskId
+module.exports.edit = async (req, res) => {
+    try{
+        const taskId = req.params.taskId;
+        
+        const listStatus = ["initial", "doing", "finish", "pending", "notFinish"];
+
+        if(req.body.timeStart){
+            res.json({
+                code: 404,
+                message: "Không được chỉnh sửa thời gian bắt đầu công việc"
+            });
+        }
+
+        // wrong stauts of task
+        if(!listStatus.includes(req.body.status)){
+            res.json({
+                code: 404,
+                message: "Trạng thái công việc không hợp lệ"
+            });
+            return;
+        }
+
+        await Task.updateOne(
+            {_id: taskId},
+            req.body
+        );
+
+        res.json({
+            code: 200,
+            message: "Chỉnh sửa công việc thành công"
+        });
+
+
+    }
+    catch(error){
+
+    }
+}
