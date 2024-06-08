@@ -17,5 +17,11 @@ router.post(
     controller.register
 );
 
+router.post(
+    '/login',
+    userValidate.login,
+    controller.login
+);
+
 // export
 module.exports = router;

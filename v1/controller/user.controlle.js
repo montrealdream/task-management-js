@@ -57,3 +57,60 @@ module.exports.register = async (req, res) => {
 
     }
 }
+
+// [POST] /api/v1/user/login
+module.exports.login = async (req, res) => {
+    try{
+        const email = req.body.email;
+        const password = req.body.password;
+
+        const user = await User.findOne({
+            email: email,
+        });
+
+        if(!user){
+            res.json({
+                code: 404,
+                message: "Email không tồn tại"
+            });
+            return;
+        }
+
+        if(user.deleted == true){
+            res.json({
+                code: 404,
+                message: "Tài khoản đã bị xóa"
+            });
+            return;
+        }
+
+        // compare password 
+        bcrypt.compare(password, user.password, (err, result) => {
+            if (err) {
+                // Handle error
+                console.error('Error comparing passwords:', err);
+                return;
+            }
+        
+        if (result) {
+            // Passwords match, authentication successful
+            console.log('Passwords match! User authenticated.');
+            res.json({
+                code: 200,
+                message: "Đăng nhập thành công",
+                token: user.tokenUser
+            });
+        } else {
+            // Passwords don't match, authentication failed
+            console.log('Passwords do not match! Authentication failed.');
+            res.json({
+                code: 404,
+                message: "Mật khẩu không chính xác",
+            });
+        }
+        });
+    }
+    catch(error){
+
+    }
+}
