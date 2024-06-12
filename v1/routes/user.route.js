@@ -23,5 +23,17 @@ router.post(
     controller.login
 );
 
+router.post(
+    '/password/forgot',
+    userValidate.forgotPassword,
+    controller.forgotPassword
+);
+
+
+router.post(
+    '/password/otp',
+    controller.otpPassword
+);
+
 // export
 module.exports = router;

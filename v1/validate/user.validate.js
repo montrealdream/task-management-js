@@ -49,3 +49,17 @@ module.exports.login = async (req, res, next) => {
     // next middlware
     next();
 }
+
+// [POST] /api/v1/user/password/forgot
+module.exports.forgotPassword = (req, res, next) => {
+    if(!req.body.email){
+        res.json({
+            code: 404,
+            message: "Vui lòng nhập email"
+        });
+        return;
+    }
+
+    // next middleware
+    next();
+}
