@@ -117,7 +117,7 @@ module.exports.login = async (req, res) => {
     }
 }
 
-// [POST] /api/v1/user/password/forgotPassword
+// [POST] /api/v1/user/password/forgot
 module.exports.forgotPassword = async (req, res) => {
     try{
         const email = req.body.email;
@@ -196,6 +196,36 @@ module.exports.otpPassword = async (req, res) => {
             code: 200,
             message: "Nhập mã OTP thành công",
             token: user.tokenUser
+        });
+    }
+    catch(error){
+
+    }
+}
+
+// [POST] /api/v1/user/password/reset
+module.exports.resetPassword = async (req, res) => {
+    try{
+        const tokenUser = req.body.token;
+        const password = req.body.password;
+
+         // hashing password with bcrypt
+         bcrypt.genSalt(saltRounds, (error, salt) => {
+            bcrypt.hash(password, salt, async (error, hash) => {
+                // Store hash in your password DB.
+                await User.updateOne(
+                    {tokenUser: tokenUser},
+                    {
+                        password: hash
+                    }
+                );
+            });
+        });
+
+        
+        res.json({
+            code: 200,
+            message: "Thay đổi mật khẩu thành công"
         });
     }
     catch(error){

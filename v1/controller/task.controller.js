@@ -157,7 +157,7 @@ module.exports.createTask = async (req, res) => {
     }
 }
 
-// [GET /api/v1/tasks/detail/:taskId
+// [GET] /api/v1/tasks/detail/:taskId
 module.exports.detail = async (req, res) => {
     try{
         const taskId = req.params.taskId;

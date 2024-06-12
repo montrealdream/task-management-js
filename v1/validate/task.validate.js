@@ -20,13 +20,13 @@ module.exports.createTask = async (req, res, next) => {
 // [PATCH] /api/v1/task/edit/:taskId
 module.exports.editTask = async (req, res, next) => {
     try{
-        if(!req.body.title){
-            res.json({
-                code: 404,
-                message: "vui lòng điền tiêu đề công việc"
-            });
-            return;
-        }
+        // if(!req.body.title){
+        //     res.json({
+        //         code: 404,
+        //         message: "vui lòng điền tiêu đề công việc"
+        //     });
+        //     return;
+        // }
 
         // next middleware
         next();

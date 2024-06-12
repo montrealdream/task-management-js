@@ -32,7 +32,14 @@ router.post(
 
 router.post(
     '/password/otp',
+    userValidate.resetPassword,
     controller.otpPassword
+);
+
+router.post(
+    '/password/reset',
+    userValidate.resetPassword,
+    controller.resetPassword
 );
 
 // export
