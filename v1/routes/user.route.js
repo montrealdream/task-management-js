@@ -10,6 +10,9 @@ const controller = require('../../v1/controller/user.controlle');
 // validate
 const userValidate = require('../validate/user.validate');
 
+// middlware
+const authMiddleware = require('../middleware/auth.middlware');
+
 // // use
 router.post(
     '/register',
@@ -26,7 +29,6 @@ router.post(
     controller.forgotPassword
 );
 
-
 router.post(
     '/password/otp',
     controller.otpPassword
@@ -37,5 +39,10 @@ router.post(
     controller.resetPassword
 );
 
+router.get(
+    '/detail/:idUser',
+    authMiddleware.requireAuth,
+    controller.detail
+);
 // export
 module.exports = router;

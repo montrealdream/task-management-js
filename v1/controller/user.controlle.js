@@ -165,7 +165,6 @@ module.exports.forgotPassword = async (req, res) => {
     }
 }
 
-
 // [POST] /api/v1/user/password/otp
 module.exports.otpPassword = async (req, res) => {
     try{
@@ -226,6 +225,27 @@ module.exports.resetPassword = async (req, res) => {
         res.json({
             code: 200,
             message: "Thay đổi mật khẩu thành công"
+        });
+    }
+    catch(error){
+
+    }
+}
+
+// [GET] /api/v1/user/detail/:idUser
+module.exports.detail = async (req, res) => {
+    try{
+        const idUser = req.params.idUser;
+        
+        const user = await User.findOne({
+            _id: idUser,
+            deleted: false
+        }).select('fullName email');
+
+        res.json({
+            code: 200,
+            message: "Xem thông tin user thành công",
+            user: user
         });
     }
     catch(error){
