@@ -44,5 +44,11 @@ router.get(
     authMiddleware.requireAuth,
     controller.detail
 );
+
+router.get(
+    '/listUser',
+    authMiddleware.requireAuth,
+    controller.listUser
+);
 // export
 module.exports = router;

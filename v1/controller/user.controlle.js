@@ -245,3 +245,23 @@ module.exports.detail = async (req, res) => {
 
     }
 }
+
+// [GET] /api/v1/user/listUser
+module.exports.listUser = async (req, res) => {
+    try{
+        const listUsers = await User.find({
+            _id: {$ne: res.locals.user.id},
+            deleted: false
+        }).select("fullName email");
+        console.log(listUsers);
+        
+        res.json({
+            code: 200,
+            message: "Lấy ra danh sách các user",
+            listUsers
+        });
+    }
+    catch(error){
+
+    }
+}
