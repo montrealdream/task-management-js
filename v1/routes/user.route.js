@@ -40,7 +40,7 @@ router.post(
 );
 
 router.get(
-    '/detail/:idUser',
+    '/detail',
     authMiddleware.requireAuth,
     controller.detail
 );

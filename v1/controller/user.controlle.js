@@ -232,20 +232,13 @@ module.exports.resetPassword = async (req, res) => {
     }
 }
 
-// [GET] /api/v1/user/detail/:idUser
+// [GET] /api/v1/user/detail
 module.exports.detail = async (req, res) => {
     try{
-        const idUser = req.params.idUser;
-        
-        const user = await User.findOne({
-            _id: idUser,
-            deleted: false
-        }).select('fullName email');
-
         res.json({
             code: 200,
             message: "Xem thông tin user thành công",
-            user: user
+            user: res.locals.user
         });
     }
     catch(error){
