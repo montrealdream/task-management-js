@@ -3,13 +3,20 @@ const Task = require('../../v1/models/task.model');
 // [GET] /api/v1/tasks
 module.exports.index = async (req, res) => {
     try{
+        const userId = res.locals.user.id;
+
+
         const findObject = {
+            $or: [
+                { createBy: userId },
+                {listUserJoin: userId}
+            ],
             deleted: false
         };
 
         // filter status of task
         if(req.query.status){
-            findObject.status = req.query.status;
+            findObjsect.status = req.query.status;
         }
         // end filter status of task
 
