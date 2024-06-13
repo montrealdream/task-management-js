@@ -267,3 +267,37 @@ module.exports.deleteMulti = async (req, res) => {
 
     }
 }
+
+// [PATCH] /api/v1/tasks/joinTask
+module.exports.joinTask = async (req, res) => {
+    try{
+        const taskId = req.body.taskId;
+        const ids = req.body.ids;
+
+        const task = await Task.findOne({
+            _id: taskId,
+        });
+
+        if(!task){
+            res.json({
+                code: 404,
+                message: "Công việc không tồn tại, kiểm tra lại task id"
+            });
+            return;
+        }
+
+        await Task.updateMany(
+            {_id: taskId},{
+                $push: {listUserJoin: ids}
+            }
+        );
+        
+        res.json({
+            code: 200,
+            message: "Thêm user vào task"
+        });
+    }
+    catch(error){
+
+    }
+}

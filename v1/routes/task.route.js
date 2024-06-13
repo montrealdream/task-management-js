@@ -17,19 +17,16 @@ router.get('/', controller.index);
 
 router.patch(
     '/change-status/:taskId',
-    authMiddleware.requireAuth,
     controller.changeStatus
 );
 
 router.patch(
     '/change-multi', 
-    authMiddleware.requireAuth,
     controller.changeMulti
 );
 
 router.post(
     '/create',
-    authMiddleware.requireAuth,
     taskValidate.createTask,
     controller.createTask
 );
@@ -41,7 +38,6 @@ router.get(
 
 router.patch(
     '/edit/:taskId',
-    authMiddleware.requireAuth,
     taskValidate.editTask,
     controller.edit
 );
@@ -49,14 +45,18 @@ router.patch(
 
 router.patch(
     '/deleteOne/:taskId',
-    authMiddleware.requireAuth,
     controller.deleteOne
 );
 
 router.patch(
     '/delete-multi',
-    authMiddleware.requireAuth,
     controller.deleteMulti
 );
+
+router.patch(
+    '/joinTask',
+    controller.joinTask
+);
+
 // export
 module.exports = router; 
