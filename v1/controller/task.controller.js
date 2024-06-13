@@ -142,6 +142,7 @@ module.exports.createTask = async (req, res) => {
             title: req.body.title,
             status: "initial", //default ,
             // chưa có time start
+            createBy: res.locals.user.id
         }
 
         const task = new Task(objTask);
